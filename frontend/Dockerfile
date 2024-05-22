@@ -20,6 +20,7 @@ RUN \
 COPY . .
 
 
+
 CMD \
   if [ -f yarn.lock ]; then yarn dev; \
   elif [ -f package-lock.json ]; then npm run dev; \
