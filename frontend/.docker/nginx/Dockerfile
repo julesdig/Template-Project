@@ -23,8 +23,6 @@ RUN apk add --update openssl tzdata curl \
     && chmod -R 755 ${WORKDIR_SERVER} \
     && mkdir -p /etc/nginx/ssl \
     && sed -i "s#__user#${USER}#g" /etc/nginx/nginx.conf \
-    && sed -i "s#__working_dir#${WORKDIR_SERVER}#g" /etc/nginx/conf.d/default.conf \
-    && sed -i "s#__server_path#${SERVER_PATH}#g" /etc/nginx/conf.d/default.conf \
     && sed -i "s#__server_name#${SERVER_NAME}#g" /etc/nginx/conf.d/default.conf \
     && apk del tzdata \
     && rm -rf /var/cache/apk/*
