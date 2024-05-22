@@ -609,6 +609,6 @@ class __TwigTemplate_70c171bbec9804c7aa4c88a31470cad0 extends Template
         </div>
     {% endif %}
 {% endblock %}
-", "@WebProfiler/Collector/twig.html.twig", "/Users/user/Documents/project/docker/backend/vendor/symfony/web-profiler-bundle/Resources/views/Collector/twig.html.twig");
+", "@WebProfiler/Collector/twig.html.twig", "/var/www/docker/vendor/symfony/web-profiler-bundle/Resources/views/Collector/twig.html.twig");
     }
 }
