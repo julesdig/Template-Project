@@ -27,7 +27,7 @@ services:
       # [PHP]
       - node
     ports:
-      - ${WEBSERVER_SECURE_PORT}:443
-      - ${WEBSERVER_UNSECURE_PORT}:80
+      - ${WEBSERVER_SECURE_PORT}:${WEBSERVER_SECURE_PORT}
+      - ${WEBSERVER_UNSECURE_PORT}:${WEBSERVER_UNSECURE_PORT}
     volumes:
       - ${PWD}:/var/www/app:delegated
