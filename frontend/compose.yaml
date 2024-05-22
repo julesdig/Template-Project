@@ -12,22 +12,3 @@ services:
     restart: always
     ports:
       - 3000:3000
-  nginx:
-    build:
-      context: .docker/nginx
-      args:
-        USER: ${USER}
-        TZ: ${TZ}
-        WORKDIR_SERVER: /var/www/${NAMESPACE}
-        SERVER_NAME: ${SERVER_NAME}
-        SERVER_PATH: ${SERVER_PATH}
-    container_name: ${NAMESPACE}_nginx_node
-    working_dir: /var/www/app
-    depends_on:
-      # [PHP]
-      - node
-    ports:
-      - ${WEBSERVER_SECURE_PORT}:${WEBSERVER_SECURE_PORT}
-      - ${WEBSERVER_UNSECURE_PORT}:${WEBSERVER_UNSECURE_PORT}
-    volumes:
-      - ${PWD}:/var/www/app:delegated
