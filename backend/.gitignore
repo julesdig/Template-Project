@@ -25,4 +25,4 @@
 /assets/vendor/
 ###< symfony/asset-mapper ###
 /.docker/SQL/data/
-!/.docker/SQL/data/
+!/.docker/SQL/data/.gitignore
