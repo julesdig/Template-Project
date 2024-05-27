@@ -98,12 +98,16 @@ jobs:
       - name: PHP Code Sniffer
         run: php bin/phpcs src/
         working-directory: "backend"
+      - name: Get MySQL Container IP
+        run: |
+          MYSQL_CONTAINER_IP=$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ${{ job.services.mysql.id }})
+          echo "MYSQL_CONTAINER_IP=$MYSQL_CONTAINER_IP" >> $GITHUB_ENV
       - name: Create Database
         run: |
           php bin/console doctrine:database:create --env=test
           php bin/console doctrine:schema:update --env=test --force --complete || echo "No migrations found or schema update failed"
         env:
-          DATABASE_URL: mysql://${{ secrets.MYSQL_USER }}:${{ secrets.MYSQL_PASSWORD }}@mysql:3306/${{ secrets.MYSQL_DATABASE }}
+          DATABASE_URL: mysql://${{ secrets.MYSQL_USER }}:${{ secrets.MYSQL_PASSWORD }}@${{ env.MYSQL_CONTAINER_IP }}:3306/${{ secrets.MYSQL_DATABASE }}
         working-directory: "backend"
       - name: PHPUnit Tests
         run: php bin/phpunit tests/ --configuration phpunit.xml --coverage-cobertura ./coverage.xml
