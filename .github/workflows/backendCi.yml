@@ -1,4 +1,4 @@
-name: CI
+name: CI Backend
 
 on:
   push:
@@ -14,7 +14,7 @@ on:
 
 jobs:
   coding-standard:
-    name: Coding Standard (PSR-12) Backend
+    name: Coding Standard (PSR-12)
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
@@ -64,7 +64,6 @@ jobs:
   build-tests:
     name: Unit Tests
     runs-on: ubuntu-latest
-    container: node:latest
     services:
       mariadb:
         image: mariadb:latest
@@ -103,11 +102,6 @@ jobs:
         run: |
           php bin/console doctrine:database:create --env=test
           php bin/console doctrine:schema:update --env=test --force --complete || echo "No migrations found or schema update failed"
-        working-directory: "backend"
-      - name: Install Assets
-        run: |
-          yarn install --force
-          yarn encore dev
         working-directory: "backend"
       - name: PHPUnit Tests
         run: php bin/phpunit tests/ --configuration phpunit.xml --coverage-cobertura ./coverage.xml
