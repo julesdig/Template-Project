@@ -96,7 +96,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install --yes default-mysql-client
       - name: PHP Code Sniffer
-        run: php bin/phpcs --standard=phpcs.xml src/
+        run: php bin/phpcs src/
         working-directory: "backend"
       - name: Create Database
         run: |
