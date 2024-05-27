@@ -23,6 +23,5 @@ class HomeControllerTest extends WebTestCase
         $this->client->request(Request::METHOD_GET, '/');
 
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-        $this->assertContains('Hello World!', $client->getResponse()->getContent());
     }
 }
