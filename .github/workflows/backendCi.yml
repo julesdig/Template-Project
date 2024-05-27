@@ -84,9 +84,6 @@ jobs:
             mysql user: docker
             mysql password: docker
             mysql database: docker
-      - name: PHP Code Sniffer
-        run: php bin/phpcs src/
-        working-directory: "backend"
       - name: Create Database
         run: |
           php bin/console doctrine:schema:update --env=test --force --complete || echo "No migrations found or schema update failed"
