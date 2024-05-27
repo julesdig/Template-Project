@@ -45,7 +45,6 @@ services:
       - php_socket:/var/run/php:cached
       - mysql_socket:/var/run/mariadbd:cached
       - ${PWD}/.docker/php/conf/extra/php-ini-overrides.ini:/usr/local/etc/php/conf.d/php-ini-overrides.ini
-
   ###############################
   ##         [MYSQL]     ##
   ###############################
@@ -55,11 +54,11 @@ services:
     container_name: ${NAMESPACE}_db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      #MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_ROOT_HOST: "%"
+      #MYSQL_DATABASE_TEST: ${MYSQL_DATABASE}_test
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
