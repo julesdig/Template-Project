@@ -15,3 +15,6 @@
 /backend/assets/vendor/
 /backend/.phpcs-cache
 /backend/phpcs.xml
+/backend/phpstan.neon
+/.docker/SQL/data/
+!/.docker/SQL/data/.gitignore
