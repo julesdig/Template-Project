@@ -13,6 +13,5 @@
 /backend/public/assets/
 /backend/assets/vendor/
 /backend/.phpcs-cache
-/backend/phpcs.xml
 /.docker/SQL/data/
 !/.docker/SQL/data/.gitignore
