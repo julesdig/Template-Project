@@ -13,7 +13,7 @@ class KernelTest extends KernelTestCase
         self::bootKernel();
         $kernel = self::$kernel;
 
-        $this->assertTrue($kernel instanceof Kernel);
+        $this->assertInstanceOf(Kernel::class, $kernel);
 
     }
 }
