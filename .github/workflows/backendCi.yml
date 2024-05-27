@@ -59,8 +59,12 @@ jobs:
           if [[ ! -z "${{ steps.changes.outputs.changedFiles }}" ]]
             then php bin/phpstan analyse ${{ steps.changes.outputs.changedFiles }}
           fi
+      - name: PHPUnit Tests
+        run: php bin/phpunit tests/ --configuration phpunit.xml --coverage-cobertura ./coverage.xml
+        env:
+          XDEBUG_MODE: coverage
   build-tests:
-    name: Unit & Functional Tests
+    name: Unit Tests
     runs-on: ubuntu-latest
     container: node:latest
     services:
