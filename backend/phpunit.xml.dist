@@ -22,8 +22,7 @@
         </testsuite>
     </testsuites>
 
-    <coverage includeUncoveredFiles="true"
-              pathCoverage="false"
+    <coverage
               ignoreDeprecatedCodeUnits="true"
               disableCodeCoverageIgnore="true">
     </coverage>
