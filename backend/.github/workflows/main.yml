@@ -29,11 +29,12 @@ jobs:
           extensions: imagick, bcmath, mysqli, intl, pdo_mysql, pdo_pgsql, pgsql, opcache, gd, xsl, zip, soap, pcntl, sockets
         env:
           APP_ENV: dev
+      - name: Change directory
+        run: cd backend
       - name: Composer install
         uses: ramsey/composer-install@v2
         with:
           composer-options: --profile --ignore-platform-reqs
-        working-directory: backend
       - name: PHP Mess Detector
         run: | 
           for file in ${{ steps.changes.outputs.changedFiles }} 
