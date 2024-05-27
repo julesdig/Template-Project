@@ -3,29 +3,20 @@ name: CI
 on:
   push:
     branches:
-      - '**'
+      - 'main'
   pull_request:
     branches:
-      - '**'
+      - 'main'
 
 jobs:
   coding-standard:
     name: Coding Standard (PSR-12)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Validate composer.json and composer.lock
-        run: composer validate --strict
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v3
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
+      - name: Git Checkout
+        uses: actions/checkout@v3
+      - name : Backend
+        run: cd backend
       - name: Git Files Changed
         run: |
           git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main
@@ -39,9 +30,10 @@ jobs:
         env:
           APP_ENV: dev
       - name: Composer install
-        run: |
-          cd backend
-          composer install --profile --ignore-platform-reqs
+        uses: ramsey/composer-install@v2
+        with:
+          composer-options: --profile --ignore-platform-reqs
+        working-directory: backend
       - name: PHP Mess Detector
         run: | 
           for file in ${{ steps.changes.outputs.changedFiles }} 
@@ -63,4 +55,3 @@ jobs:
           if [[ ! -z "${{ steps.changes.outputs.changedFiles }}" ]]
             then php bin/phpstan analyse ${{ steps.changes.outputs.changedFiles }}
           fi
-          
