@@ -64,16 +64,6 @@ jobs:
   build-tests:
     name: Unit Tests
     runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:latest
-        env:
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-          MYSQL_USER: ${{ secrets.MYSQL_USER }}
-          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-        ports:
-          - 3306:3306
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4
@@ -92,9 +82,13 @@ jobs:
           composer-options: "--ignore-platform-reqs --optimize-autoloader"
           working-directory: "backend"
       - name: Setup MySQL
-        run: |
-          sudo apt-get update
-          sudo apt-get install mysql-server
+        uses: mirromutth/mysql-action@v1.1
+        with:
+            mysql-version: '8.0'
+            root-password: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+            user: ${{ secrets.MYSQL_USER }}
+            password: ${{ secrets.MYSQL_PASSWORD }}
+            database: ${{ secrets.MYSQL_DATABASE }}
       - name: PHP Code Sniffer
         run: php bin/phpcs src/
         working-directory: "backend"
