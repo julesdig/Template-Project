@@ -13,7 +13,9 @@ class KernelTest extends KernelTestCase
         self::bootKernel();
         $kernel = self::$kernel;
 
-        $this->assertInstanceOf(Kernel::class, $kernel);
+        $environment = $kernel->getEnvironment();
+
+        $this->assertEquals('test', $environment);
 
     }
 }
