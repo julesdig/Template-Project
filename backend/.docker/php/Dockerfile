@@ -59,8 +59,6 @@ RUN docker-php-ext-configure gd --with-freetype=/usr/include/freetype2 --with-jp
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone \
 
-RUN pecl install xdebug \
-    && docker-php-ext-enable xdebug \
 
 RUN sed -i "s#__user#${USER}#g" /usr/local/etc/php-fpm.d/zz-docker.conf \
     && addgroup -g 1000 -S ${USER} \
