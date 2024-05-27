@@ -57,8 +57,7 @@ RUN docker-php-ext-configure gd --with-freetype=/usr/include/freetype2 --with-jp
         zip \
         soap \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
-    && echo $TZ > /etc/timezone \
-
+    && echo $TZ > /etc/timezone
 
 RUN sed -i "s#__user#${USER}#g" /usr/local/etc/php-fpm.d/zz-docker.conf \
     && addgroup -g 1000 -S ${USER} \

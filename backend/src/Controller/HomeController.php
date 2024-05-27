@@ -8,9 +8,9 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class HomeController extends AbstractController
 {
-    #[Route('/', name: 'index')]
+    #[Route('/', name: 'index', methods: ['GET'])]
     public function index(): Response
     {
-        return new Response('Hello World!', Response::HTTP_OK);
+        return new Response( status: Response::HTTP_OK);
     }
 }

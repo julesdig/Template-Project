@@ -11,17 +11,23 @@ use Symfony\Component\HttpFoundation\Request;
 class HomeControllerTest extends WebTestCase
 {
     protected KernelBrowser $client;
+
     public function setUp(): void
     {
         parent::setUp();
         $this->client = static::createClient();
     }
+
     public function testIndex()
     {
-        $client = static::createClient();
+        $this->client->catchExceptions(false); // Désactive la capture des exceptions pour ce test
 
         $this->client->request(Request::METHOD_GET, '/');
+        $response = $this->client->getResponse();
 
-        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        // Vérifie si le code de réponse est OK
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+
+        $this->client->catchExceptions(true); // Réactive la capture des exceptions après le test
     }
 }
