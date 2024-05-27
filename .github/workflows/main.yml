@@ -15,8 +15,6 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3
-      - name : Backend
-        run: cd backend
       - name: Git Files Changed
         run: |
           git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main
@@ -33,6 +31,7 @@ jobs:
         uses: ramsey/composer-install@v2
         with:
           composer-options: --profile --ignore-platform-reqs
+        working-directory: backend
       - name: PHP Mess Detector
         run: | 
           for file in ${{ steps.changes.outputs.changedFiles }} 
