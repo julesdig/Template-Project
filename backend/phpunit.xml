@@ -25,9 +25,6 @@
     <coverage
             ignoreDeprecatedCodeUnits="true"
             disableCodeCoverageIgnore="true">
-        <include>
-            <directory>src</directory>
-        </include>
     </coverage>
     <extensions>
     </extensions>
