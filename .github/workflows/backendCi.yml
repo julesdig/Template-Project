@@ -107,11 +107,9 @@ jobs:
           indicators: true
           output: both
           thresholds: '60 80'
-          working-directory: "backend"
       - name: Add Coverage Summary
         uses: marocchino/sticky-pull-request-comment@v2
         if: github.event_name == 'pull_request'
         with:
           recreate: true
           path: code-coverage-results.md
-          working-directory: "backend"
