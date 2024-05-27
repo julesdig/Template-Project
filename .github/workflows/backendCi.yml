@@ -4,13 +4,17 @@ on:
   push:
     branches:
       - 'main'
+    paths:
+      - 'backend/**'
   pull_request:
     branches:
       - 'main'
+    paths:
+      - 'backend/**'
 
 jobs:
   coding-standard:
-    name: Coding Standard (PSR-12)
+    name: Coding Standard (PSR-12) Backend
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
