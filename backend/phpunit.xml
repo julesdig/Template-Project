@@ -22,9 +22,13 @@
         </testsuite>
     </testsuites>
 
-    <coverage
-              ignoreDeprecatedCodeUnits="true"
-              disableCodeCoverageIgnore="true">
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+        <exclude>
+            <file>src/Kernel.php</file>
+        </exclude>
     </coverage>
 
 
