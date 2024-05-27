@@ -94,7 +94,7 @@ jobs:
       - name: Setup MySQL
         run: |
           sudo apt-get update
-          sudo apt-get install --yes default-mysql-client
+          sudo apt-get install --y mysql-client
       - name: PHP Code Sniffer
         run: php bin/phpcs src/
         working-directory: "backend"
@@ -102,8 +102,6 @@ jobs:
         run: |
           php bin/console doctrine:database:create --env=test
           php bin/console doctrine:schema:update --env=test --force --complete || echo "No migrations found or schema update failed"
-        env:
-          DATABASE_URL: mysql://docker:docker@mysql:3306/docker?serverVersion=8.0.32&charset=utf8mb4
         working-directory: "backend"
       - name: PHPUnit Tests
         run: php bin/phpunit tests/ --configuration phpunit.xml --coverage-cobertura ./coverage.xml
