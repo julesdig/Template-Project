@@ -9,7 +9,6 @@
 /backend/public/bundles/
 /backend/var/
 /backend/vendor/
-/backend/phpunit.xml
 /backend/.phpunit.result.cache
 /backend/public/assets/
 /backend/assets/vendor/
