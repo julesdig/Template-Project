@@ -1,11 +1,6 @@
-name: CI
+name: CI Backend
 
 on:
-  push:
-    branches:
-      - 'main'
-    paths:
-      - 'backend/**'
   pull_request:
     branches:
       - 'main'
@@ -14,13 +9,11 @@ on:
 
 jobs:
   coding-standard:
-    name: Coding Standard (PSR-12) Backend
+    name: Coding Standard (PSR-12)
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v3
-      - name : Backend
-        run: cd backend
+        uses: actions/checkout@v4
       - name: Git Files Changed
         run: |
           git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main
@@ -44,38 +37,31 @@ jobs:
           do 
             php bin/phpmd ${file} text phpmd.xml 
           done
+        working-directory: "backend"
       - name: PHP Code Sniffer Fixer
         run: |
           if [[ ! -z "${{ steps.changes.outputs.changedFiles }}" ]]
             then php bin/phpcbf --standard=phpcs.xml ${{ steps.changes.outputs.changedFiles }}
           fi
+        working-directory: "backend"
       - name: PHP Code Sniffer
         run: |
           if [[ ! -z "${{ steps.changes.outputs.changedFiles }}" ]]
             then php bin/phpcs --standard=phpcs.xml ${{ steps.changes.outputs.changedFiles }}
           fi
+        working-directory: "backend"
       - name: PHPStan Static Analysis
         run: |
           if [[ ! -z "${{ steps.changes.outputs.changedFiles }}" ]]
             then php bin/phpstan analyse ${{ steps.changes.outputs.changedFiles }}
           fi
+        working-directory: "backend"
   build-tests:
-    name: Unit & Functional Tests
+    name: Unit Tests
     runs-on: ubuntu-latest
-    container: node:latest
-    services:
-      mariadb:
-        image: mariadb:latest
-        env:
-          MYSQL_ROOT_PASSWORD: ${{ MYSQL_ROOT_PASSWORD }}
-          MYSQL_USER: ${{ MYSQL_USER }}
-          MYSQL_PASSWORD: ${{ MYSQL_PASSWORD }}
-          MYSQL_DATABASE: ${{ MYSQL_DATABASE }}
-        ports:
-          - 3306:3306
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup PHP
         uses: shivammathur/setup-php@master
         with:
@@ -83,39 +69,49 @@ jobs:
           coverage: xdebug
           ini-values: memory_limit=-1
           extensions: imagick, bcmath, mysqli, intl, pdo_mysql, pdo_pgsql, pgsql, opcache, gd, xsl, zip, soap, pcntl, sockets, gettext, xdebug
+        env:
+          APP_ENV: test
       - name: Composer install
-        uses: ramsey/composer-install@v2
+        uses: ramsey/composer-install@v3
         with:
-          composer-options: --profile --ignore-platform-reqs
-      - name: Setup MariaDB
-        run: |
-          apt-get update
-          apt-get install --yes mariadb-client
+          composer-options: "--ignore-platform-reqs --optimize-autoloader"
+          working-directory: "backend"
+      - name: Setup MySQL
+        uses: mirromutth/mysql-action@v1.1
+        with:
+            mysql version: '8.0'
+            mysql root password: root
+            mysql user: docker
+            mysql password: docker
+            mysql database: docker
       - name: Create Database
         run: |
-          php bin/console doctrine:database:create --env=test
           php bin/console doctrine:schema:update --env=test --force --complete || echo "No migrations found or schema update failed"
-      - name: Install Assets
-        run: |
-          yarn install --force
-          yarn encore dev
+        env:
+          DATABASE_URL: mysql://${{ secrets.MYSQL_USER }}:${{ secrets.MYSQL_PASSWORD }}@127.0.0.1:3306/${{ secrets.MYSQL_DATABASE }}
+        working-directory: "backend"
       - name: PHPUnit Tests
         run: php bin/phpunit tests/ --configuration phpunit.xml --coverage-cobertura ./coverage.xml
         env:
           XDEBUG_MODE: coverage
+        working-directory: "backend"
       - name: Code Coverage Analysis
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
-          filename: coverage.xml
+          filename: backend/coverage.xml
           badge: true
-          fail_below_min: false
+          fail_below_min: true
           format: markdown
           hide_branch_rate: false
           hide_complexity: true
           indicators: true
           output: both
-          thresholds: '60 80'
-      - name: Add Coverage Summary
+          thresholds: '75 85'
+      - name: Print Working Directory
+        run: pwd
+      - name: List Files
+        run: ls -la
+      - name: Add Coverage PR Comment
         uses: marocchino/sticky-pull-request-comment@v2
         if: github.event_name == 'pull_request'
         with:
