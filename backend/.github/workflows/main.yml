@@ -56,4 +56,3 @@ jobs:
           if [[ ! -z "${{ steps.changes.outputs.changedFiles }}" ]]
             then php bin/phpstan analyse ${{ steps.changes.outputs.changedFiles }}
           fi
-        
