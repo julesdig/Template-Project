@@ -19,8 +19,6 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4
-      - name : Backend
-        run: cd backend
       - name: Git Files Changed
         run: |
           git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main
@@ -44,21 +42,25 @@ jobs:
           do 
             php bin/phpmd ${file} text phpmd.xml 
           done
+        working-directory: "backend"
       - name: PHP Code Sniffer Fixer
         run: |
           if [[ ! -z "${{ steps.changes.outputs.changedFiles }}" ]]
             then php bin/phpcbf --standard=phpcs.xml ${{ steps.changes.outputs.changedFiles }}
           fi
+        working-directory: "backend"
       - name: PHP Code Sniffer
         run: |
           if [[ ! -z "${{ steps.changes.outputs.changedFiles }}" ]]
             then php bin/phpcs --standard=phpcs.xml ${{ steps.changes.outputs.changedFiles }}
           fi
+        working-directory: "backend"
       - name: PHPStan Static Analysis
         run: |
           if [[ ! -z "${{ steps.changes.outputs.changedFiles }}" ]]
             then php bin/phpstan analyse ${{ steps.changes.outputs.changedFiles }}
           fi
+        working-directory: "backend"
   build-tests:
     name: Unit Tests
     runs-on: ubuntu-latest
@@ -76,8 +78,6 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4
-      - name: Backend
-        run: cd backend
       - name: Setup PHP
         uses: shivammathur/setup-php@master
         with:
@@ -86,7 +86,7 @@ jobs:
           ini-values: memory_limit=-1
           extensions: imagick, bcmath, mysqli, intl, pdo_mysql, pdo_pgsql, pgsql, opcache, gd, xsl, zip, soap, pcntl, sockets, gettext, xdebug
         env:
-          APP_ENV: dev
+          APP_ENV: test
       - name: Composer install
         uses: ramsey/composer-install@v3
         with:
@@ -98,18 +98,22 @@ jobs:
           sudo apt-get install --yes default-mysql-client
       - name: PHP Code Sniffer
         run: php bin/phpcs --standard=phpcs.xml src/
+        working-directory: "backend"
       - name: Create Database
         run: |
           php bin/console doctrine:database:create --env=test
           php bin/console doctrine:schema:update --env=test --force --complete || echo "No migrations found or schema update failed"
+        working-directory: "backend"
       - name: Install Assets
         run: |
           yarn install --force
           yarn encore dev
+        working-directory: "backend"
       - name: PHPUnit Tests
         run: php bin/phpunit tests/ --configuration phpunit.xml --coverage-cobertura ./coverage.xml
         env:
           XDEBUG_MODE: coverage
+        working-directory: "backend"
       - name: Code Coverage Analysis
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
@@ -122,9 +126,11 @@ jobs:
           indicators: true
           output: both
           thresholds: '60 80'
+          working-directory: "backend"
       - name: Add Coverage Summary
         uses: marocchino/sticky-pull-request-comment@v2
         if: github.event_name == 'pull_request'
         with:
           recreate: true
           path: code-coverage-results.md
+          working-directory: "backend"
