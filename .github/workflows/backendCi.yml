@@ -91,7 +91,7 @@ jobs:
       - name: Setup MySQL
         run: |
           sudo apt-get update
-          sudo apt-get install --yes mysql-client
+          sudo apt-get install --yes default-mysql-client
       - name: PHP Code Sniffer
         run: php bin/phpcs --standard=phpcs.xml src/
 
