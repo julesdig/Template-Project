@@ -1,11 +1,6 @@
 name: CI Backend
 
 on:
-  push:
-    branches:
-      - 'main'
-    paths:
-      - 'backend/**'
   pull_request:
     branches:
       - 'main'
@@ -84,11 +79,11 @@ jobs:
       - name: Setup MySQL
         uses: mirromutth/mysql-action@v1.1
         with:
-            mysql-version: '8.0'
-            root-password: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-            user: ${{ secrets.MYSQL_USER }}
-            password: ${{ secrets.MYSQL_PASSWORD }}
-            database: ${{ secrets.MYSQL_DATABASE }}
+            mysql version: '8.0'
+            mysql root password: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+            mysql user: ${{ secrets.MYSQL_USER }}
+            mysql password: ${{ secrets.MYSQL_PASSWORD }}
+            mysql database: ${{ secrets.MYSQL_DATABASE }}
       - name: PHP Code Sniffer
         run: php bin/phpcs src/
         working-directory: "backend"
