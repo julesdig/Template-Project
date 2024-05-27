@@ -76,6 +76,8 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3
+      - name: Backend
+        run: cd backend
       - name: Setup PHP
         uses: shivammathur/setup-php@master
         with:
@@ -88,8 +90,6 @@ jobs:
         with:
           composer-options: "--ignore-platform-reqs --optimize-autoloader"
           working-directory: "backend"
-      - name: Backend
-        run: cd backend
       - name: Setup MySQL
         run: |
           sudo apt-get update
