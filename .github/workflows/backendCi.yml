@@ -94,7 +94,7 @@ jobs:
       - name: Setup MySQL
         run: |
           sudo apt-get update
-          sudo apt-get install --y mysql-client
+          sudo apt-get install mysql-server
       - name: PHP Code Sniffer
         run: php bin/phpcs src/
         working-directory: "backend"
