@@ -88,13 +88,14 @@ jobs:
         with:
           composer-options: "--ignore-platform-reqs --optimize-autoloader"
           working-directory: "backend"
+      - name: Backend
+        run: cd backend
       - name: Setup MySQL
         run: |
           sudo apt-get update
           sudo apt-get install --yes default-mysql-client
       - name: PHP Code Sniffer
         run: php bin/phpcs --standard=phpcs.xml src/
-
       - name: Create Database
         run: |
           php bin/console doctrine:database:create --env=test
