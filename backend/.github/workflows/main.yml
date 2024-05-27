@@ -30,10 +30,7 @@ jobs:
         env:
           APP_ENV: dev
       - name: Composer install
-        uses: ramsey/composer-install@v2
-        with:
-          composer-options: --profile --ignore-platform-reqs
-        working-directory: backend
+        run: composer install --profile --ignore-platform-reqs
       - name: PHP Mess Detector
         run: | 
           for file in ${{ steps.changes.outputs.changedFiles }} 
