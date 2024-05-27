@@ -28,8 +28,9 @@ jobs:
         env:
           APP_ENV: dev
       - name: Composer install
-        run: composer install --profile --ignore-platform-reqs
-        working-directory: backend
+        run: |
+          cd backend
+          composer install --profile --ignore-platform-reqs
       - name: PHP Mess Detector
         run: | 
           for file in ${{ steps.changes.outputs.changedFiles }} 
