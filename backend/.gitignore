@@ -26,3 +26,11 @@
 ###< symfony/asset-mapper ###
 /.docker/SQL/data/
 !/.docker/SQL/data/.gitignore
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###
+
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###

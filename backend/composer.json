@@ -51,7 +51,8 @@
             "symfony/flex": true,
             "symfony/runtime": true
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "bin-dir": "bin"
     },
     "autoload": {
         "psr-4": {
@@ -96,7 +97,10 @@
         }
     },
     "require-dev": {
+        "phpmd/phpmd": "^2.15",
+        "phpstan/phpstan": "^1.11",
         "phpunit/phpunit": "^9.5",
+        "squizlabs/php_codesniffer": "^3.10",
         "symfony/browser-kit": "7.0.*",
         "symfony/css-selector": "7.0.*",
         "symfony/debug-bundle": "7.0.*",
