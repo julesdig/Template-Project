@@ -24,17 +24,16 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@master
         with:
-          php-version: 8.2
+          php-version: 8.3
           ini-values: memory_limit=-1
           extensions: imagick, bcmath, mysqli, intl, pdo_mysql, pdo_pgsql, pgsql, opcache, gd, xsl, zip, soap, pcntl, sockets
         env:
           APP_ENV: dev
-      - name: Change directory
-        run: cd backend
       - name: Composer install
-        uses: ramsey/composer-install@v2
+        uses: ramsey/composer-install@v3
         with:
-          composer-options: --profile --ignore-platform-reqs
+          composer-options: "--ignore-platform-reqs --optimize-autoloader"
+          working-directory: "backend"
       - name: PHP Mess Detector
         run: | 
           for file in ${{ steps.changes.outputs.changedFiles }} 
@@ -56,4 +55,3 @@ jobs:
           if [[ ! -z "${{ steps.changes.outputs.changedFiles }}" ]]
             then php bin/phpstan analyse ${{ steps.changes.outputs.changedFiles }}
           fi
-        
