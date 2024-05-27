@@ -67,10 +67,10 @@ jobs:
       mariadb:
         image: mariadb:latest
         env:
-          MYSQL_ROOT_PASSWORD: ${{ MYSQL_ROOT_PASSWORD }}
-          MYSQL_USER: ${{ MYSQL_USER }}
-          MYSQL_PASSWORD: ${{ MYSQL_PASSWORD }}
-          MYSQL_DATABASE: ${{ MYSQL_DATABASE }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
         ports:
           - 3306:3306
     steps:
