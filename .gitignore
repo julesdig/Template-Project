@@ -13,3 +13,5 @@
 /backend/.phpunit.result.cache
 /backend/public/assets/
 /backend/assets/vendor/
+/backend/.phpcs-cache
+/backend/phpcs.xml
