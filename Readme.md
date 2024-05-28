@@ -6,18 +6,6 @@
 ![PHP Badge](https://img.shields.io/badge/PHP-8.3-777BB4?style=flat&logo=php&logoColor=white)
 ![Node.js Badge](https://img.shields.io/badge/Node.js-22-339933?style=flat&logo=node.js&logoColor=white)
 
-# portfolio
-
-![Symfony Badge](https://img.shields.io/badge/symfony-7.0.1-blue.svg?logo=symfony&logoColor=fff&style=flat)
-![Nginx Badge](https://img.shields.io/badge/nginx_alpine-1.25-green.svg?logo=nginx&logoColor=fff&style=flat)
-![PHP Badge](https://img.shields.io/badge/php-8.3-yellow.svg?logo=php&logoColor=fff&style=flat)
-![MySQL Badge](https://img.shields.io/badge/mysql-latest-purple.svg?logo=mysql&logoColor=fff&style=flat)
-![Adminer Badge](https://img.shields.io/badge/adminer-4.8.1-orange.svg?logo=adminer&logoColor=fff&style=flat)
-![Vue.js Badge](https://img.shields.io/badge/vue-3.3.4-brightgreen.svg?logo=vue.js&logoColor=fff&style=flat)
-![Vuetify Badge](https://img.shields.io/badge/vuetify-3.3.23-pink.svg?logo=vuetify&logoColor=fff&style=flat)
-
-
-
 ## Docker Set up
 
 1. Install Docker on your local machine:
