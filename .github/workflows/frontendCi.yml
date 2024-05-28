@@ -1,0 +1,26 @@
+name: CI Frontend
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+jobs:
+  coding-standard:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 22 ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install pnpm
+        run: npm install -g pnpm
+      - name: Install dependencies
+        run: cd frontend && pnpm install
+      - name: Run linter
+        run: cd frontend && pnpm run lint
+      - name: Build project
+        run:  cd frontend && pnpm run build
