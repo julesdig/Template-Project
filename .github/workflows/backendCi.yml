@@ -107,10 +107,6 @@ jobs:
           indicators: true
           output: both
           thresholds: '75 85'
-      - name: Print Working Directory
-        run: pwd
-      - name: List Files
-        run: ls -la
       - name: Add Coverage PR Comment
         uses: marocchino/sticky-pull-request-comment@v2
         if: github.event_name == 'pull_request'
