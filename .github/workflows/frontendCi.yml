@@ -1,4 +1,4 @@
-name: CI frontend
+name: CI Frontend
 
 on:
   pull_request:
@@ -16,6 +16,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install pnpm
+        run: npm install -g pnpm
       - name: Install dependencies
         run: cd frontend && pnpm install
       - name: Run linter
