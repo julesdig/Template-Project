@@ -1,6 +1,6 @@
 ## Project Template 
 ![Docker Badge](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
-![Symfony Badge](https://img.shields.io/badge/Symfony-7.0-333?style=flat&logo=symfony&logoColor=white)
+![Symfony Badge](https://img.shields.io/badge/Symfony-7.1-333?style=flat&logo=symfony&logoColor=white)
 ![Next.js Badge](https://img.shields.io/badge/Next.js-14-000000?style=flat&logo=next.js&logoColor=white)
 ![MySQL Badge](https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat&logo=mysql&logoColor=white)
 ![PHP Badge](https://img.shields.io/badge/PHP-8.3-777BB4?style=flat&logo=php&logoColor=white)
