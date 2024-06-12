@@ -63,7 +63,7 @@ services:
       - "3306:3306"
     volumes:
       - mysql_socket:/var/run/mariadbd
-      - mysql_data:/var/lib/mysql/
+      - ${PWD}/.docker/SQL/data/mysql:/var/lib/mysql
 
   ###############################
   ##         [Adminer]         ##
@@ -87,7 +87,7 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${PWD}/.docker/SQL/data
+      device: ./.docker/SQL/data
 
   mysql_socket:
     driver_opts:
